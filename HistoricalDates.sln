@@ -5,9 +5,11 @@ VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F04EDB89-B710-48E3-BCA5-4108E745D186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoricalDates.Domain", "HistoricalDates.Domain\HistoricalDates.Domain.csproj", "{48813AE5-D58B-477B-99A1-9BBC8AFC0915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HistoricalDates.Domain", "HistoricalDates.Domain\HistoricalDates.Domain.csproj", "{48813AE5-D58B-477B-99A1-9BBC8AFC0915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoricalDates.WebAPI", "HistoricalDates.WebAPI\HistoricalDates.WebAPI.csproj", "{FAD865BC-4165-4E64-ABCE-17AA8E45BA10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HistoricalDates.WebAPI", "HistoricalDates.WebAPI\HistoricalDates.WebAPI.csproj", "{FAD865BC-4165-4E64-ABCE-17AA8E45BA10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoricalDates.Application", "HistoricalDates.Application\HistoricalDates.Application.csproj", "{76F306FE-6946-4B35-B63C-1E209185284C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{FAD865BC-4165-4E64-ABCE-17AA8E45BA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAD865BC-4165-4E64-ABCE-17AA8E45BA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAD865BC-4165-4E64-ABCE-17AA8E45BA10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F306FE-6946-4B35-B63C-1E209185284C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F306FE-6946-4B35-B63C-1E209185284C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F306FE-6946-4B35-B63C-1E209185284C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F306FE-6946-4B35-B63C-1E209185284C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{48813AE5-D58B-477B-99A1-9BBC8AFC0915} = {F04EDB89-B710-48E3-BCA5-4108E745D186}
 		{FAD865BC-4165-4E64-ABCE-17AA8E45BA10} = {F04EDB89-B710-48E3-BCA5-4108E745D186}
+		{76F306FE-6946-4B35-B63C-1E209185284C} = {F04EDB89-B710-48E3-BCA5-4108E745D186}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {012B1804-127E-47A5-89C1-3B312458C6A0}
