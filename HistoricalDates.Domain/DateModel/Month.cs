@@ -2,39 +2,29 @@
 
 namespace HistoricalDates.Domain.DateModel;
 
-public sealed record Month : SingleDate
+public sealed record Month : Date
 {
     public Month(int month, int year, Era era = default) : base(era)
     {
-        Value = month;
-        Year = year;
+        Year = Rules.EnsureValidYear(year);
+        Value = Rules.EnsureValidMonth(month, year);
     }
 
     public int Value { get; private init; }
 
     public int Year { get; private init; }
 
-    public static int DaysInMonth(int month, int year, Era era)
+    public override Interval ToInterval()
     {
-        if (era is Era.AD)
-            return DateTime.DaysInMonth(year, month);
+        var beginDayNumber = ProlepticGregorianСalendar.DayNumber(day: 1, month: Value, Year, Era);
 
-        if (month == 2)
-            return 29;
+        var daysInMonth = ProlepticGregorianСalendar.DaysInMonth(month: Value, Year, Era);
 
-        return 31;
+        var endDayNumber = ProlepticGregorianСalendar.DayNumber(day: daysInMonth, month: Value, Year, Era);
+
+        return new Interval(beginDayNumber, endDayNumber);
     }
 
-    protected override Interval InitInterval()
-        => new(
-            beginDay: new Day(day: 1, month: Value, Year), 
-            endDay: GetLastDayOfMonth()
-        );
-
-    private Day GetLastDayOfMonth()
-    {
-        var daysInMonth = DaysInMonth(month: Value, Year, Era);
-        
-        return new Day(day: daysInMonth, month: Value, Year, Era);
-    }
+    protected override string DateToString() 
+        => $"{MonthNameProvider.Get(Value)} {Year}";
 }

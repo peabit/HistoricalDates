@@ -1,28 +1,33 @@
 using HistoricalDates.Domain.DateModel;
-using HistoricalDates.Domain.DateModel.Base;
+using HistoricalDates.Domain.HistoricalDate;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 
-var dates = new List<Date>()
+
+//BsonSerializer.RegisterSerializer(new ObjectSerializer(type => true));
+BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+
+var client = new MongoClient();
+var db = client.GetDatabase("dates");
+var collection = db.GetCollection<HistoricalDate>("dates");
+
+var dates = new List<HistoricalDate>()
 {
-    new Year(501),
-    new Year(506),
-    new Day(6, 5, 503),
-    new Year(201),
-    new Year(202),
-    new Year(400),
-    new Day(1, 1, 201),
-    new Day(2, 1, 201),
-    new Month(7, 503),
-    new Day(5, 5, 201),
-    new Day(10, 10, 203),
-    new Month(1, 201),
-    new Month(6, 201),
-    new Century(3),
-    new Century(5),
+    HistoricalDate.CreateByDate(new Day(5, 6, 50), "Описание даты", circa: true)
 };
 
-dates.Sort();
+collection.InsertMany(dates);
+
+var dateFromDb = collection.Find(new BsonDocument()).First();
 
 ;
+
+//var sortStrategy = Builders<HistoricalDate>
+//    .Sort
+//    .Ascending(d => d.Interval.BeginDayNumber)
+//    .Descending(d => d.Interval.EndDayNumber);
 
 //var builder = WebApplication.CreateBuilder(args);
 

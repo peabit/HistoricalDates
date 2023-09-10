@@ -1,33 +1,16 @@
 ﻿namespace HistoricalDates.Domain.DateModel.Base;
 
-public record Interval : IComparable<Interval>
+public sealed record Interval
 {
-    public Interval(Day beginDay, Day endDay)
+    public Interval(int beginDay, int endDay)
     {
-        BeginDay = beginDay ?? throw new ArgumentNullException(nameof(beginDay));
-        EndDay = endDay ?? throw new ArgumentNullException(nameof(endDay));
+        Rules.EnsureThat(beginDay >= endDay, "Begin day should be less than or equal to end day");
+
+        BeginDayNumber = beginDay;
+        EndDayNumber = endDay;
     }
 
-    public Day BeginDay { get; private init; }
+    public int BeginDayNumber { get; private init; }
 
-    public Day EndDay { get; private init; }
-
-    public int CompareTo(Interval? other)
-    {
-        if (other is null) return 1;
-
-        if (BeginDay > other.BeginDay)
-            return -1;
-
-        if (BeginDay < other.BeginDay)
-            return 1;
-
-        if (EndDay > other.EndDay)
-            return 1;
-
-        if (EndDay < other.EndDay)
-            return -1;
-
-        return 0;
-    }
+    public int EndDayNumber { get; private init; }
 }

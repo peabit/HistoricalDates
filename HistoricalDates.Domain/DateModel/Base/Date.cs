@@ -1,14 +1,18 @@
 ﻿namespace HistoricalDates.Domain.DateModel.Base;
 
-public abstract record Date : IComparable<Date>
+public abstract record Date
 {
-    public int CompareTo(Date? other)
-        => other is null ? 1 : Interval.CompareTo(other.Interval);
+    public Date(Era era) => Era = era;
 
-    internal Interval Interval 
-        => _interval ??= InitInterval();
+    public Era Era { get; }
+    
+    public sealed override string ToString()
+    {
+        var date = DateToString();
+        return Era is Era.BC ? $"{date} {Era}" : date;
+    }
 
-    protected abstract Interval InitInterval();
+    public abstract Interval ToInterval();
 
-    private Interval? _interval;
+    protected abstract string DateToString();
 }

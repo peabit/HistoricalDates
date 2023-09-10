@@ -2,23 +2,26 @@
 
 namespace HistoricalDates.Domain.DateModel;
 
-public sealed record Century : SingleDate
+public sealed record Century : Date
 {
     public Century(int century, Era era = default) : base(era)
-        => Value = century;
-    
+        => Value = Rules.EnsureValidCentury(century);
+
     public int Value { get; private init; }
 
-    protected override Interval InitInterval()
+    public override Interval ToInterval()
     {
         var yearA = (Value - 1) * 100 + 1;
-        var yearB = (Value * 100);
+        var yearB = Value * 100;
 
         (int beginYear, int endYear) = Era is Era.AD ? (yearA, yearB) : (yearB, yearA);
 
-        var beginDay = new Day(day: 1, month: 1, beginYear, Era);
-        var endDay = new Day(day: 31, month: 12, endYear, Era);
+        var beginDayNumber = ProlepticGregorianСalendar.DayNumber(day: 1, month: 1, year: beginYear, Era);
+        var endDayNumber = ProlepticGregorianСalendar.DayNumber(day: 31, month: 12, year: endYear, Era);
 
-        return new Interval(beginDay, endDay);
+        return new Interval(beginDayNumber, endDayNumber);
     }
+
+    protected override string DateToString()
+        => RomanNumerals.Convert.ToRomanNumerals(Value);
 }
