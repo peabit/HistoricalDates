@@ -2,12 +2,12 @@
 
 public sealed record Interval
 {
-    public Interval(int beginDay, int endDay)
+    public Interval(int beginDayNumber, int endDayNumber)
     {
-        Rules.EnsureThat(beginDay >= endDay, "Begin day should be less than or equal to end day");
+        Rules.EnsureThat(beginDayNumber <= endDayNumber, "Begin day should be less than or equal to end day");
 
-        BeginDayNumber = beginDay;
-        EndDayNumber = endDay;
+        BeginDayNumber = beginDayNumber;
+        EndDayNumber = endDayNumber;
     }
 
     public int BeginDayNumber { get; private init; }

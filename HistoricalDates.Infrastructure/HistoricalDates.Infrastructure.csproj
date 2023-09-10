@@ -1,20 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HistoricalDates.Application\HistoricalDates.Application.csproj" />
     <ProjectReference Include="..\HistoricalDates.Domain\HistoricalDates.Domain.csproj" />
-    <ProjectReference Include="..\HistoricalDates.Infrastructure\HistoricalDates.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

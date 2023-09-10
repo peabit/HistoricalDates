@@ -21,7 +21,7 @@ public sealed record Day : Date
     {
         var dayNumber = ProlepticGregorianСalendar.DayNumber(this);
 
-        return new Interval(BeginDayNumber: dayNumber, EndDayNumber: dayNumber);
+        return new Interval(beginDayNumber: dayNumber, endDayNumber: dayNumber);
     }
 
     protected override string DateToString()

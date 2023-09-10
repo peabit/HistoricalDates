@@ -1,5 +1,6 @@
 using HistoricalDates.Domain.DateModel;
 using HistoricalDates.Domain.HistoricalDate;
+using HistoricalDates.Infrastructure;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -13,14 +14,15 @@ var client = new MongoClient();
 var db = client.GetDatabase("dates");
 var collection = db.GetCollection<HistoricalDate>("dates");
 
-var dates = new List<HistoricalDate>()
-{
-    HistoricalDate.CreateByDate(new Day(5, 6, 50), "Описание даты", circa: true)
-};
+var repository = new MongoDbHistoricalDateRepository(collection);
 
-collection.InsertMany(dates);
+//await repository.DeleteAsync(new Guid("8d804eef-2014-4e5e-866c-025f0e409430"));
 
-var dateFromDb = collection.Find(new BsonDocument()).First();
+;
+
+//await repository.AddAsync(HistoricalDate.CreateByDate(new Day(1, 1, 2001), "Описание", tags: new string[] { "test" }));
+
+var fd = await repository.FindAsync();
 
 ;
 
