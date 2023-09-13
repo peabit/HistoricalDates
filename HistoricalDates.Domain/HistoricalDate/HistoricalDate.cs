@@ -9,7 +9,8 @@ public sealed record HistoricalDate
         Date date, 
         string description, 
         string[] tags = default!, 
-        bool circa = default)
+        bool circa = default
+    )
     {
         var stringDate = date.ToString()!;
 

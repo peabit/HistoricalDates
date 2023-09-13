@@ -1,44 +1,41 @@
-using HistoricalDates.Domain.DateModel;
-using HistoricalDates.Domain.HistoricalDate;
-using HistoricalDates.Infrastructure;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
+using HistoricalDates.WebAPI;
+using JsonSubTypes;
+using Newtonsoft;
 
+//BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 
-//BsonSerializer.RegisterSerializer(new ObjectSerializer(type => true));
-BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+var builder = WebApplication.CreateBuilder(args);
 
-var client = new MongoClient();
-var db = client.GetDatabase("dates");
-var collection = db.GetCollection<HistoricalDate>("dates");
+builder.Services.AddSwaggerGen();
 
-var repository = new MongoDbHistoricalDateRepository(collection);
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    //Register the subtypes of the Device (Phone and Laptop)
+    //and define the device Discriminator
+    options.SerializerSettings.Converters.Add(
+        JsonSubtypesConverterBuilder
+            .Of(typeof(IDateValue), "DateValueType")
+            .RegisterSubtype(typeof(DayDto), DateValueType.DayDto)
+            .RegisterSubtype(typeof(MonthDto), DateValueType.MonthDto)
+            .SerializeDiscriminatorProperty()
+            .Build()
+    );
 
-//await repository.DeleteAsync(new Guid("8d804eef-2014-4e5e-866c-025f0e409430"));
+    options.SerializerSettings.Converters.Add(
+        JsonSubtypesConverterBuilder
+            .Of(typeof(IDate), "DateType")
+            .RegisterSubtype(typeof(SingleDate), DateType.SingleDate)
+            .RegisterSubtype(typeof(Period), DateType.Period)
+            .SerializeDiscriminatorProperty()
+            .Build()
+    );
+});
 
-;
+var app = builder.Build();
 
-//await repository.AddAsync(HistoricalDate.CreateByDate(new Day(1, 1, 2001), "Описание", tags: new string[] { "test" }));
+app.UseSwagger();
+app.UseSwaggerUI();
 
-var fd = await repository.FindAsync();
+app.MapControllers();
 
-;
-
-//var sortStrategy = Builders<HistoricalDate>
-//    .Sort
-//    .Ascending(d => d.Interval.BeginDayNumber)
-//    .Descending(d => d.Interval.EndDayNumber);
-
-//var builder = WebApplication.CreateBuilder(args);
-
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-
-//var app = builder.Build();
-
-//app.UseSwagger();
-//app.UseSwaggerUI();
-
-//app.Run();
+app.Run();

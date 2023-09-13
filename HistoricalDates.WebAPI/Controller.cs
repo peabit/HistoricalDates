@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 
 namespace HistoricalDates.WebAPI;
 
-//[ApiController]
-[Route("/")]
+[ApiController]
+[Route("dates")]
 public class Controller : ControllerBase
 {
-    [HttpGet]
-    public string Get(Request request)
+    [HttpPost]
+    public IActionResult Create(IDate date)
     {
-        return "Hello";
+        //var v = new DateDtoValidator();
+        //var result = v.Validate(date);
+
+        return Ok();
     }
 }
