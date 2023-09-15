@@ -1,4 +1,6 @@
 ﻿
+using HistoricalDates.Application;
+using HistoricalDates.Application.Dtos.Date;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HistoricalDates.WebAPI;
@@ -7,12 +9,15 @@ namespace HistoricalDates.WebAPI;
 [Route("dates")]
 public class Controller : ControllerBase
 {
-    [HttpPost]
-    public IActionResult Create(IDate date)
-    {
-        //var v = new DateDtoValidator();
-        //var result = v.Validate(date);
+    private readonly DatesService _datesService;
 
+    public Controller(DatesService datesService) 
+        => _datesService = datesService ?? throw new ArgumentNullException(nameof(datesService));
+
+    [HttpPost]
+    public async Task<IActionResult> Create(IDateDto date)
+    {
+        await _datesService.Add(date);
         return Ok();
     }
 }
