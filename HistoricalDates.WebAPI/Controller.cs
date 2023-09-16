@@ -1,7 +1,5 @@
-﻿
-using HistoricalDates.Application;
+﻿using HistoricalDates.Application;
 using HistoricalDates.Application.Dtos.Date;
-using HistoricalDates.Domain.Seedwork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HistoricalDates.WebAPI;
@@ -18,7 +16,6 @@ public class Controller : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(IDateDto date)
     {
-        throw new DomainException("");
         await _datesService.Add(date);
         return Ok();
     }

@@ -6,5 +6,5 @@ public record PeriodDateDto(
     IDateValueDto BeginDate,
     IDateValueDto EndDate,
     string Description,
-    string[] Tags,
+    string[] Tags
 ) : IDateDto;
