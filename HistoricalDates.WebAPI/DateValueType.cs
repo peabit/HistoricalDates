@@ -2,5 +2,8 @@ namespace HistoricalDates.WebAPI;
 
 public enum DateValueType
 {
-    Day
+    Day,
+    Month, 
+    Year,
+    Century
 }

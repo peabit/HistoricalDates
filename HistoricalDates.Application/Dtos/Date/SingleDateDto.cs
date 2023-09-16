@@ -4,5 +4,6 @@ namespace HistoricalDates.Application.Dtos.Date;
 
 public record SingleDateDto(
     IDateValueDto DateValue, 
-    string Description
+    string Description,
+    string[] Tags
 ) : IDateDto;

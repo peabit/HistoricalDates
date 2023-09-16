@@ -37,27 +37,26 @@ public class Mapper
     private static HistoricalDate CreateSingleHistoricalDate(SingleDateDto singleDateDto)
     {
         var date = MapDateValueDto(singleDateDto.DateValue);
+        
+        var circa = ParseCirca(singleDateDto.DateValue.Circa);
 
-        return HistoricalDate.CreateByDate(
-            date,
-            description: singleDateDto.Description,
-            circa: singleDateDto.DateValue.Circa
-        );
+        return HistoricalDate.CreateByDate(date, singleDateDto.Description, singleDateDto.Tags, circa);
     }
     
     private static HistoricalDate CreatePeriodHistoricalDate(PeriodDateDto periodDateDto)
     {
-        var fromDate = MapDateValueDto(periodDateDto.BeginDate);
+        var beginDate = MapDateValueDto(periodDateDto.BeginDate);
 
-        var toDate = MapDateValueDto(periodDateDto.EndDate);
+        var endDate = MapDateValueDto(periodDateDto.EndDate);
 
-        var period = new Period<Date, Date>(fromDate, toDate);
+        var period = new Period<Date, Date>(beginDate, endDate);
 
         var historicalDate = HistoricalDate.CreateByPeriod(
             period,
             periodDateDto.Description,
-            circaBegin: periodDateDto.BeginDate.Circa,
-            circaEnd: periodDateDto.EndDate.Circa
+            periodDateDto.Tags,
+            circaBegin: ParseCirca(periodDateDto.BeginDate.Circa),
+            circaEnd: ParseCirca(periodDateDto.EndDate.Circa)
         );
 
         return historicalDate;
@@ -71,4 +70,6 @@ public class Mapper
 
         return success ? parsedEra : throw new DomainException("Era should be AD or BC");
     }
+
+    private static bool ParseCirca(bool? circa) => circa ?? false;
 }

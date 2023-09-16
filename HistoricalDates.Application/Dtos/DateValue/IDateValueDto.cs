@@ -4,5 +4,5 @@ public interface IDateValueDto
 {
     string? Era { get; init; }
     
-    bool Circa { get; init; }
+    bool? Circa { get; init; }
 }

@@ -5,5 +5,6 @@ namespace HistoricalDates.Application.Dtos.Date;
 public record PeriodDateDto(
     IDateValueDto BeginDate,
     IDateValueDto EndDate,
-    string Description
+    string Description,
+    string[] Tags,
 ) : IDateDto;
