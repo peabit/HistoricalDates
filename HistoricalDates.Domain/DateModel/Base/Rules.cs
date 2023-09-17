@@ -1,6 +1,4 @@
-﻿using HistoricalDates.Domain.Seedwork;
-
-namespace HistoricalDates.Domain.DateModel.Base;
+﻿namespace HistoricalDates.Domain.DateModel.Base;
 
 internal static class Rules
 {

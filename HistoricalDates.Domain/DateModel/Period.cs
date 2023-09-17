@@ -23,7 +23,7 @@ public sealed record Period<TBegin, TEnd>
 
     public override string ToString() => $"{Begin} — {End}";
 
-    internal Interval ToInterval()
+    public Interval ToInterval()
     {
         var beginDayNumber = Begin.ToInterval().BeginDayNumber;
         var endDayNumber = End.ToInterval().EndDayNumber;
@@ -36,6 +36,6 @@ public sealed record Period<TBegin, TEnd>
         var beginInterval = begin.ToInterval();
         var endInterval = end.ToInterval();
 
-        Rules.EnsureThat(beginInterval.EndDayNumber < endInterval.BeginDayNumber, "Begin date should be greater than end date");
+        Rules.EnsureThat(beginInterval.EndDayNumber <= endInterval.BeginDayNumber, "Begin date should be greater than end date");
     }
 }

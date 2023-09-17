@@ -1,4 +1,4 @@
-﻿namespace HistoricalDates.Domain.Seedwork;
+﻿namespace HistoricalDates.Domain;
 
 public class DomainException : Exception
 {

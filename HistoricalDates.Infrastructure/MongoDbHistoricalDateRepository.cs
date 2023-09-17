@@ -25,7 +25,7 @@ public class MongoDbHistoricalDateRepository : IHistoricalDateRepository
                 filterBuilder.Gte(d => d.BeginDayNumber, interval.BeginDayNumber) &
                 filterBuilder.Lte(d => d.EndDayNumber, interval.EndDayNumber);
 
-        if (tags is not null)
+        if (tags is not null && tags.Any())
             filter &= filterBuilder.All(d => d.Tags, tags);
 
         var sorter = Builders<HistoricalDate>
@@ -41,8 +41,8 @@ public class MongoDbHistoricalDateRepository : IHistoricalDateRepository
         return foundDates;
     }
 
-    public async Task UpdateAsync(HistoricalDate historicalDate)
-        => await _dates.ReplaceOneAsync(d => d.Id == historicalDate.Id, historicalDate);
+    public async Task UpdateAsync(Guid id, HistoricalDate newHistoricalDate)
+         => await _dates.ReplaceOneAsync(d => d.Id == id, newHistoricalDate);
 
     public async Task DeleteAsync(Guid id)
         => await _dates.DeleteOneAsync(d => d.Id == id);

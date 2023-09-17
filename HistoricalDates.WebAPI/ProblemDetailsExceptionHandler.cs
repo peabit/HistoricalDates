@@ -1,7 +1,7 @@
-﻿using HistoricalDates.Domain.Seedwork;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using HistoricalDates.Domain;
 
 namespace HistoricalDates.WebAPI;
 

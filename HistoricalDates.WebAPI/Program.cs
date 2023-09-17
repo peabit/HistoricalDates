@@ -18,7 +18,7 @@ builder.Services.AddMapper();
 
 builder.Services.AddRepository();
     
-builder.Services.AddDatesService();
+builder.Services.AddFeatures();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
@@ -35,6 +35,9 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
          JsonSubtypesConverterBuilder
              .Of(typeof(IDateValueDto), "DateValueType")
              .RegisterSubtype(typeof(DayDto), DateValueType.Day)
+             .RegisterSubtype(typeof(MonthDto), DateValueType.Month)
+             .RegisterSubtype(typeof(YearDto), DateValueType.Year)
+             .RegisterSubtype(typeof(CenturyDto), DateValueType.Century)
              .SerializeDiscriminatorProperty()
              .Build()
      );
@@ -44,7 +47,6 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
 
 app.MapControllers();
 

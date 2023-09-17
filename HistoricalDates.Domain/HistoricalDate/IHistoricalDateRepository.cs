@@ -7,9 +7,9 @@ public interface IHistoricalDateRepository
 {
     Task AddAsync(HistoricalDate historicalDate);
 
-    Task<IEnumerable<HistoricalDate>> FindAsync(Interval interval, string[] tags = default!);
+    Task<IEnumerable<HistoricalDate>> FindAsync(Interval interval, string[]? tags = default!);
 
-    Task UpdateAsync(HistoricalDate historicalDate);
+    Task UpdateAsync(Guid id, HistoricalDate newHistoricalDate);
     
     Task DeleteAsync(Guid id);
 }

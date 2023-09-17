@@ -1,15 +1,15 @@
 using HistoricalDates.Application.Dtos.Date;
 using HistoricalDates.Application.Dtos.DateValue;
+using HistoricalDates.Domain;
 using HistoricalDates.Domain.DateModel;
 using HistoricalDates.Domain.DateModel.Base;
 using HistoricalDates.Domain.HistoricalDate;
-using HistoricalDates.Domain.Seedwork;
 
 namespace HistoricalDates.Application;
 
 public class Mapper
 {
-    public HistoricalDate Map(IDateDto dateDto)
+    public HistoricalDate MapHistoricalDate(IDateDto dateDto)
     {
         var historicalDate = dateDto switch
         {
@@ -25,13 +25,38 @@ public class Mapper
     {
         var era = ParseEra(dateValueDto.Era);
 
-        var date = dateValueDto switch
+        Date date = dateValueDto switch
         {
-            DayDto dayDto => new Day(dayDto.Day, dayDto.Month, dayDto.Year, era),
-            _ => throw new InvalidOperationException("Unexpected date value DTO type")
+            DayDto dayDto 
+                => new Day(dayDto.Day, dayDto.Month, dayDto.Year, era),
+            
+            MonthDto monthDto 
+                => new Month(monthDto.Month, monthDto.Year, era),
+            
+            YearDto yearDto 
+                => new Year(yearDto.Year, era),
+            
+            CenturyDto centuryDto 
+                => new Century(centuryDto.Century, era),
+            
+            _ 
+                => throw new InvalidOperationException("Unexpected date value DTO type")
         };
 
         return date;
+    }
+
+    public Century MapCentury(int century)
+    {
+        var era = Era.AD;
+
+        if (century < 1)
+        {
+            century = Math.Abs(century);
+            era = Era.BC;
+        }
+
+        return new Century(century, era);
     }
 
     private static HistoricalDate CreateSingleHistoricalDate(SingleDateDto singleDateDto)

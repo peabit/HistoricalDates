@@ -1,4 +1,5 @@
 using HistoricalDates.Application;
+using HistoricalDates.Application.Features;
 using HistoricalDates.Domain.HistoricalDate;
 using HistoricalDates.Infrastructure;
 using MongoDB.Driver;
@@ -13,7 +14,7 @@ public static class IocExtensions
             .GetDatabase("dates")
             .GetCollection<HistoricalDate>("dates");
 
-        services.AddSingleton<IMongoCollection<HistoricalDate>>(dates);
+        services.AddSingleton(dates);
     }
 
     public static void AddMapper(this IServiceCollection services)
@@ -22,6 +23,14 @@ public static class IocExtensions
     public static void AddRepository(this IServiceCollection services)
         => services.AddSingleton<IHistoricalDateRepository, MongoDbHistoricalDateRepository>();
     
-    public static void AddDatesService(this IServiceCollection services)
-        => services.AddSingleton<DatesService>();
+    public static void AddFeatures(this IServiceCollection services)
+    {
+        services.AddSingleton<AddCommand>();
+
+        services.AddSingleton<DeleteCommand>();
+
+        services.AddSingleton<FindQuery>();
+
+        services.AddSingleton<DeleteCommand>();
+    }
 }
