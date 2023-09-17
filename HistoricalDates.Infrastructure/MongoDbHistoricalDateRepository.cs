@@ -41,8 +41,8 @@ public class MongoDbHistoricalDateRepository : IHistoricalDateRepository
         return foundDates;
     }
 
-    public async Task UpdateAsync(Guid id, HistoricalDate newHistoricalDate)
-         => await _dates.ReplaceOneAsync(d => d.Id == id, newHistoricalDate);
+    public async Task UpdateAsync(HistoricalDate newHistoricalDate)
+         => await _dates.ReplaceOneAsync(d => d.Id == newHistoricalDate.Id, newHistoricalDate);
 
     public async Task DeleteAsync(Guid id)
         => await _dates.DeleteOneAsync(d => d.Id == id);

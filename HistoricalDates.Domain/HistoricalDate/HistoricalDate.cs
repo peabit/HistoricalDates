@@ -56,7 +56,7 @@ public sealed record HistoricalDate
         Tags = tags;    
     }
 
-    public Guid Id { get; private init; }
+    public Guid Id { get; init; }
 
     public string Date { get; private init; }
 

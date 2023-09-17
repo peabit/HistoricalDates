@@ -17,6 +17,9 @@ public sealed class UpdateCommand
     public async Task Execute(Guid id, IDateDto dateDto)
     {
         var date = _mapper.MapHistoricalDate(dateDto);
-        await _repository.UpdateAsync(id, date);
+
+        var dateForUpdate = date with { Id = id };
+
+        await _repository.UpdateAsync(dateForUpdate);
     }
 }

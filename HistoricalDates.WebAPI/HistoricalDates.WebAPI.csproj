@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\HistoricalDates.Application\HistoricalDates.Application.csproj" />
     <ProjectReference Include="..\HistoricalDates.Domain\HistoricalDates.Domain.csproj" />
     <ProjectReference Include="..\HistoricalDates.Infrastructure\HistoricalDates.Infrastructure.csproj" />

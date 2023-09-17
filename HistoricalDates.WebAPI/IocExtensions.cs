@@ -27,10 +27,10 @@ public static class IocExtensions
     {
         services.AddSingleton<AddCommand>();
 
-        services.AddSingleton<DeleteCommand>();
+        services.AddSingleton<UpdateCommand>();
 
         services.AddSingleton<FindQuery>();
 
-        services.AddSingleton<DeleteCommand>();
+        services.AddSingleton<UpdateCommand>();
     }
 }

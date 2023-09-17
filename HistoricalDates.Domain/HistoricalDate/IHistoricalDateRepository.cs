@@ -9,7 +9,7 @@ public interface IHistoricalDateRepository
 
     Task<IEnumerable<HistoricalDate>> FindAsync(Interval interval, string[]? tags = default!);
 
-    Task UpdateAsync(Guid id, HistoricalDate newHistoricalDate);
+    Task UpdateAsync(HistoricalDate newHistoricalDate);
     
     Task DeleteAsync(Guid id);
 }

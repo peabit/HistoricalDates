@@ -24,8 +24,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.Converters.Add(
         JsonSubtypesConverterBuilder
-            .Of(typeof(IDateDto), "DateType")
-            .RegisterSubtype(typeof(SingleDateDto), DateType.SingleDate)
+            .Of(typeof(IDateDto), "Type")
+            .RegisterSubtype(typeof(SingleDateDto), DateType.Single)
             .RegisterSubtype(typeof(PeriodDateDto), DateType.Period)
             .SerializeDiscriminatorProperty()
             .Build()

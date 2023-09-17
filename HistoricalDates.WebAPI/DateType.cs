@@ -2,6 +2,6 @@ namespace HistoricalDates.WebAPI;
 
 public enum DateType
 {
-    SingleDate,
+    Single,
     Period
 }

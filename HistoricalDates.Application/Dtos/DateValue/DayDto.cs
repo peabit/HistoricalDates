@@ -1,7 +1,9 @@
-﻿namespace HistoricalDates.Application.Dtos.DateValue;
+﻿using System.ComponentModel.DataAnnotations;
 
-public sealed record DayDto(
-    int Day,
+namespace HistoricalDates.Application.Dtos.DateValue;
+
+public record DayDto(
+    [Required] int Day,
     int Month,
     int Year,
     string? Era,
